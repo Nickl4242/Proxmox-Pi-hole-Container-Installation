@@ -1,0 +1,37 @@
+Proxmox Pi-Hole Installation Guide 
+Download Ubuntu Container Template:
+-	Log into your Proxmox hypervisor.
+-	Click local storage for your node.
+-	Click CT Templates under Summary
+-	Click Templates and search for ubuntu-23.04-standard.
+-	Download the Container template. 
+Make sure our storage I set up for Disk Image and Container:
+-	Click Datacenter/Storage select local and click edit, pull down, and click Disk Image and Container press okay.
+Create Ubuntu Container:
+-	Right-click your main node on the left column and select Create CT.
+-	Name your host (“Pi-Hole”) and set up a password and click next.
+-	Select the Ubuntu CT template and click next.
+-	Change disc size to 4.
+-	Cores 2
+-	Memory 1024 (1 gig).
+-	Set up static IP so that when your Ip changes it won't mess up our DNS server settings IPv$/CIDR: 192.168.1.72/24 (or another IP that’s not being used. 
+-	Gateway (IPv4): you will have to find this by either going to cmd and typing ipconfig /all or going to your router settings and finding it there we will be using 192.168.1.1. 
+-	Finish setup. 
+Start Container and Install Pi-Hole:
+-	Login to the container through the 
+-	console (root and password you chose)
+-	apt update
+-	apt upgrade
+-	apt install curl
+-	curl -sSL https://install.pi-hole.net | bash 
+-	go through the commands we will be using google as our initial DNS.
+-	select the default block list.
+-	Yes we want the admin web interface
+-	Yes we want Lightpd
+-	Yes enable query logging
+-	Show everything.
+-	Remember to write down the password and login credentials it shows you after the install
+Login to Pi-Hole GUI and setup:
+-	Tools update gravity – update.
+-	Point your router to your Pi-Hole DNS IP (this is different for each person's router set up.)
+-	Routerlogin.net/setup/internetsetup Under Primary DNS change the IP to the IP of our Pi-hole.
